@@ -9,3 +9,10 @@ https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 > flask run --host=0.0.0.0
 ```
 
+db:
+
+```
+> flask db init # one time 
+> flask db migrate -m "msg"
+> flask db upgrade
+```
