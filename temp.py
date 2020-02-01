@@ -44,8 +44,8 @@ def draw_temp_in_col(x, new_temp, sense):
     for y in range(8):
         p_col = col if y <= fill_to_y else (0, 0, 0)
         sense.set_pixel(x, 7-y, p_col)
-
-def main():
+        
+def temp_deamon():
     """loops the hat"""
     sense = SenseHat()
     sense.low_light = True
@@ -66,4 +66,5 @@ def main():
         sleep(5)
 
 if __name__ == "__main__":
-    main()
+    temp_deamon()
+
