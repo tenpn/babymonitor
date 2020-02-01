@@ -4,6 +4,8 @@ Messing around with sensehat.
 from time import sleep
 import math
 from sense_hat import SenseHat
+from app import db
+from app.models import Stats
 
 C_PER_BLOCK = 1.5
 MIN_TEMP = 15.5
@@ -55,6 +57,9 @@ def temp_deamon():
         sense.clear()
         draw_temp_scale_in_col(7, sense)
         current_temp = sense.get_temperature()
+        stat_record = Stats(temp=current_temp)
+        db.session.add(stat_record)
+        db.session.commit()
         print(current_temp)
         c_hist.append(current_temp)
         if len(c_hist) > 7:
