@@ -19,12 +19,12 @@ def get_col_for_temp(temp):
     """Returns a suitable (r,g,b) color for this C temp."""
     if temp >= MAX_GOOD_TEMP:
         hot_alpha = alpha(MAX_GOOD_TEMP, MAX_TEMP, temp)
-        return (math.floor(hot_alpha*255), math.floor((1-hot_alpha)*255), 0)
+        return (int(math.floor(hot_alpha*255)), int(math.floor((1-hot_alpha)*255)), 0)
     elif temp >= MIN_GOOD_TEMP:
         return (0, 255, 0)
     else:
         good_alpha = alpha(MIN_TEMP, MIN_GOOD_TEMP, temp)
-        return (0, math.floor(good_alpha*255), math.floor((1-good_alpha)*255))
+        return (0, int(math.floor(good_alpha*255)), int(math.floor((1-good_alpha)*255)))
 
 def draw_temp_scale_in_col(x, sense):
     """Draws the scale on the right"""
