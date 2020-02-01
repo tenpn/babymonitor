@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Baby Monitor</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  </head>
+  <body>
+    <h1>It's gettin hot in here</h1>
+    <p>Got {{ stats|length }} records since {{since}}</p>
+    <div class="ct-chart ct-perfect-fourth"></div>
+    <script>
+      var data = {
+          labels: [
+              {% for stat in stats %}
+              '{{ stat.timestamp }}',
+              {% endfor %}
+          ],
+          series: [
+              [
+                  {% for stat in stats %}
+                  {{ stat.temp }},
+                  {% endfor %}
+              ]
+          ]
+      };
+
+      // Create a new line chart object where as first parameter we pass in a selector
+      // that is resolving to our chart container element. The Second parameter
+      // is the actual data object.
+      new Chartist.Line('.ct-chart', data);
+    </script>
+    {% for stat in stats %}
+    <p>{{ stat.temp }}deg</p>
+    {% endfor %}
+  </body>
+</html>
