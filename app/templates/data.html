@@ -18,16 +18,29 @@
           series: [
               [
                   {% for stat in stats %}
-                  {{ stat.temp }},
+                  {{ '%0.1f' % stat.temp }},
                   {% endfor %}
               ]
           ]
+      };
+      var options = {
+          //high: 32,
+          //low: 21,
+          //minScaleSpace: 1.5,
+          //referenceValue: 21,
+          //onlyInteger: true,
+          //fullWidth: true,
+          axisY: {
+              referenceValue: 21,
+              onlyInteger: true,
+              offset: 100,
+          }
       };
 
       // Create a new line chart object where as first parameter we pass in a selector
       // that is resolving to our chart container element. The Second parameter
       // is the actual data object.
-      new Chartist.Line('.ct-chart', data);
+      new Chartist.Line('.ct-chart', data, options);
     </script>
     {% for stat in stats %}
     <p>{{ stat.temp }}deg</p>
