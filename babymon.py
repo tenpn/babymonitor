@@ -9,4 +9,5 @@ def make_shell_context():
     """remember to add new db tables!"""
     return {'db': db, 'Stats': Stats}
 
-threading.Thread(target=temp.temp_deamon).start()
+threading.Thread(target=temp.temp_record_deamon).start()
+threading.Thread(target=temp.temp_cleanup_deamon).start()

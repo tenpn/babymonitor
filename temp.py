@@ -2,6 +2,7 @@
 Messing around with sensehat.
 """
 from time import sleep
+from datetime import datetime, timedelta
 import math
 from sense_hat import SenseHat
 from app import db
@@ -47,7 +48,7 @@ def draw_temp_in_col(x, new_temp, sense):
         p_col = col if y <= fill_to_y else (0, 0, 0)
         sense.set_pixel(x, 7-y, p_col)
         
-def temp_deamon():
+def temp_record_deamon():
     """loops the hat"""
     sense = SenseHat()
     sense.low_light = True
@@ -68,8 +69,18 @@ def temp_deamon():
             current_c_hist = c_hist[-(i+1)]
             draw_temp_in_col(6-i, current_c_hist, sense)
 
-        sleep(5)
+        sleep(10)
+
+def temp_cleanup_deamon():
+    while True:
+        # delete old data
+        # TODO: keep summarised/averaged data
+        oldest_kept = datetime.utcnow() - timedelta(minutes=10)
+        records_to_delete = Stats.query.filter(Stats.timestamp < oldest_kept)
+        deleted_count = records_to_delete.delete()
+        print("deleting", deleted_count)
+        db.session.commit()
+        sleep(60)
 
 if __name__ == "__main__":
-    temp_deamon()
-
+    temp_record_deamon()
