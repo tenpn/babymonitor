@@ -12,4 +12,5 @@ class Stats(db.Model):
     temp = db.Column(db.Float)
 
     def __repr__(self):
-        return '<Stats temp={}>'.format(self.temp)
+        return '<Stats {0:0.1f}dC @ {1}>'\
+            .format(self.temp, self.timestamp.strftime("%m/%d/%y %H:%M.%S"))

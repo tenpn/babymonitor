@@ -57,7 +57,7 @@ def temp_record_deamon():
     while True:
         sense.clear()
         draw_temp_scale_in_col(7, sense)
-        current_temp = sense.get_temperature()
+        current_temp = round(sense.get_temperature(), 1)
         stat_record = Stats(temp=current_temp)
         db.session.add(stat_record)
         db.session.commit()
