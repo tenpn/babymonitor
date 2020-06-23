@@ -72,6 +72,7 @@ def temp_record_deamon():
         sleep(10)
 
 def temp_cleanup_deamon():
+    """cleans up stale data"""
     while True:
         # delete old data
         # TODO: keep summarised/averaged data
