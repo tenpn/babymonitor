@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Baby Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="What's the temperature, Kenneth?">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="main.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">{{ stats[-1].temp }}°C</h1>
+          <p class="card-text">Got {{ stats|length }} records since {{since.strftime("%H:%M.%S")}}</p>
+        </div>
+      </div>
+      <img class="img-fluid" src="{{ url_for('video_feed') }}"/>
+    </div>
+    
+    
+    <!--script>
+      var data = {
+          labels: [
+              {% for stat in stats %}
+              '{{ stat.timestamp.strftime("%H:%M.%S") }}',
+              {% endfor %}
+          ],
+          series: [
+              [
+                  {% for stat in stats %}
+                  {{ '%0.1f' % stat.temp }},
+                  {% endfor %}
+              ]
+          ]
+      };
+      var options = {
+          //high: 32,
+          //low: 21,
+          //minScaleSpace: 1.5,
+          //referenceValue: 21,
+          //onlyInteger: true,
+          //fullWidth: true,
+          axisY: {
+              referenceValue: 21,
+              onlyInteger: true,
+              offset: 100,
+          }
+      };
+    </script-->
+    <script type="text/javascript" src="main.js"/>
+    
+  </body>
+</html>
