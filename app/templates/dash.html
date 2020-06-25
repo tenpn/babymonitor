@@ -13,13 +13,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <h1 class="card-title">{{ stats[-1].temp }}°C</h1>
-          <p class="card-text">Got {{ stats|length }} records since {{since.strftime("%H:%M.%S")}}</p>
+      <div class="row">
+        <!-- temp -->
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="card-title">{{ stats[-1].temp }}°C</h1>
+              <p class="card-text">Got {{ stats|length }} records since {{since.strftime("%H:%M.%S")}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- video -->
+        <div class="col-sm">
+          <img class="img-fluid" src="{{ url_for('video_feed') }}"/>
         </div>
       </div>
-      <img class="img-fluid" src="{{ url_for('video_feed') }}"/>
     </div>
     
     
