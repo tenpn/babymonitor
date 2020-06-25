@@ -10,7 +10,7 @@ from camera.camera_pi import Camera
 def index():
     oldest_recent = datetime.utcnow() - timedelta(minutes=1)
     recent_air_stats = Stats.query.filter(Stats.timestamp >= oldest_recent).order_by(Stats.timestamp).all()
-    return render_template('data.html', stats=recent_air_stats, since=oldest_recent)
+    return render_template('dash.html', stats=recent_air_stats, since=oldest_recent)
 
 def gen_video(camera):
     while True:
