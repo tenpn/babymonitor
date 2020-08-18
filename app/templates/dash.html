@@ -50,8 +50,28 @@
                     {% endfor %}
                 ],
                 fill: false,
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                pointBackgroundColor: [
+                    {% for stat in stats %}
+                    {% if stat.temp < 20 %}
+                    window.chartColors.blue,
+                    {% elif stat.temp < 23 %}
+                    window.chartColors.green,
+                    {% else %}
+                    window.chartColors.red,
+                    {% endif %}
+                    {% endfor %}
+                ],
+                borderColor: [
+                    {% for stat in stats %}
+                    {% if stat.temp < 20 %}
+                    window.chartColors.blue,
+                    {% elif stat.temp < 23 %}
+                    window.chartColors.green,
+                    {% else %}
+                    window.chartColors.red,
+                    {% endif %}
+                    {% endfor %}
+                ],
             }]
         },
         options: {
