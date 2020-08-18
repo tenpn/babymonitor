@@ -19,3 +19,15 @@ db:
 
 to update requirements.txt: 
 `pip freeze > requirements.txt`
+
+# deployment
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux
+
+``` 
+> sudo apt-get install supervisor
+> sudo cp superdbabymon.conf /etc/supervisor/conf.d/
+> pip install gunicorn
+> sudo supervisorctl reload
+```
+
