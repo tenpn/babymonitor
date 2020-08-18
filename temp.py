@@ -36,7 +36,7 @@ def draw_temp_scale_in_col(x, sense):
         gague_col = (255, 0, 0) if gague_temp >= MAX_GOOD_TEMP \
             else (0, 255, 0) if gague_temp >= MIN_GOOD_TEMP \
                  else (0, 0, 255)
-        sense.set_pixel(x, 7-y, gague_col)
+        sense.set_pixel(x, y, gague_col)
     
 def draw_temp_in_col(x, new_temp, sense):
     """Draws the temp gauge."""
@@ -46,7 +46,7 @@ def draw_temp_in_col(x, new_temp, sense):
     # 00 is top left
     for y in range(8):
         p_col = col if y <= fill_to_y else (0, 0, 0)
-        sense.set_pixel(x, 7-y, p_col)
+        sense.set_pixel(x, y, p_col)
         
 def temp_record_deamon():
     """loops the hat"""
@@ -56,7 +56,7 @@ def temp_record_deamon():
 
     while True:
         sense.clear()
-        draw_temp_scale_in_col(7, sense)
+        draw_temp_scale_in_col(0, sense)
         current_temp = round(sense.get_temperature(), 1)
         stat_record = Stats(temp=current_temp)
         db.session.add(stat_record)
@@ -67,7 +67,7 @@ def temp_record_deamon():
             c_hist.pop(0)
         for i in range(min(len(c_hist), 7)):
             current_c_hist = c_hist[-(i+1)]
-            draw_temp_in_col(6-i, current_c_hist, sense)
+            draw_temp_in_col(i+1, current_c_hist, sense)
 
         sleep(10)
 
