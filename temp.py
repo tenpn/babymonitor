@@ -13,6 +13,8 @@ MIN_TEMP = 15.5
 MAX_TEMP = MIN_TEMP + C_PER_BLOCK*8
 MIN_GOOD_TEMP = 20
 MAX_GOOD_TEMP = MIN_GOOD_TEMP + C_PER_BLOCK*2
+GAMMA = 0.15
+MAX_PIXEL = math.floor(255*GAMMA)
 
 def alpha(min_val, max_val, val):
     """Return 0-1 where 0 val==min_val and 1 val==max_val. Does not clamp."""
@@ -22,20 +24,20 @@ def get_col_for_temp(temp):
     """Returns a suitable (r,g,b) color for this C temp."""
     if temp >= MAX_GOOD_TEMP:
         hot_alpha = alpha(MAX_GOOD_TEMP, MAX_TEMP, temp)
-        return (int(math.floor(hot_alpha*255)), int(math.floor((1-hot_alpha)*255)), 0)
+        return (int(math.floor(hot_alpha*MAX_PIXEL)), int(math.floor((1-hot_alpha)*MAX_PIXEL)), 0)
     elif temp >= MIN_GOOD_TEMP:
-        return (0, 255, 0)
+        return (0, MAX_PIXEL, 0)
     else:
         good_alpha = alpha(MIN_TEMP, MIN_GOOD_TEMP, temp)
-        return (0, int(math.floor(good_alpha*255)), int(math.floor((1-good_alpha)*255)))
+        return (0, int(math.floor(good_alpha*MAX_PIXEL)), int(math.floor((1-good_alpha)*MAX_PIXEL)))
 
 def draw_temp_scale_in_col(x, sense):
     """Draws the scale on the right"""
     for y in range(8):
         gague_temp = MIN_TEMP+y*C_PER_BLOCK
-        gague_col = (255, 0, 0) if gague_temp >= MAX_GOOD_TEMP \
-            else (0, 255, 0) if gague_temp >= MIN_GOOD_TEMP \
-                 else (0, 0, 255)
+        gague_col = (MAX_PIXEL, 0, 0) if gague_temp >= MAX_GOOD_TEMP \
+            else (0, MAX_PIXEL, 0) if gague_temp >= MIN_GOOD_TEMP \
+                 else (0, 0, MAX_PIXEL)
         sense.set_pixel(x, y, gague_col)
     
 def draw_temp_in_col(x, new_temp, sense):
